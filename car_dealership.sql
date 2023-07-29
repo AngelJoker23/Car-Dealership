@@ -69,3 +69,25 @@ CREATE TABLE Part (
     Name VARCHAR(100) NOT NULL,
     Price DECIMAL(10, 2) NOT NULL
 );
+
+--Create Stored Function
+DELIMITER //
+
+CREATE FUNCTION CalculateTotalRevenue() RETURNS DECIMAL(10, 2)
+BEGIN
+    DECLARE totalAmount DECIMAL(10, 2);
+    
+    SELECT SUM(Amount) INTO totalAmount
+    FROM Invoice;
+    
+    RETURN totalAmount;
+END;
+
+//
+
+DELIMITER ;
+
+
+--To call the stored function
+SELECT CalculateTotalRevenue();
+
